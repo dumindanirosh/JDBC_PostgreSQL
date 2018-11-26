@@ -1,0 +1,173 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.3
+-- Dumped by pg_dump version 9.1.3
+-- Started on 2018-11-27 01:32:35
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 164 (class 3079 OID 11639)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1868 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 161 (class 1259 OID 16394)
+-- Dependencies: 5
+-- Name: T_Product; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "T_Product" (
+    product_id integer NOT NULL,
+    product_name text,
+    cost_price numeric,
+    sale_price numeric
+);
+
+
+ALTER TABLE public."T_Product" OWNER TO postgres;
+
+--
+-- TOC entry 163 (class 1259 OID 24585)
+-- Dependencies: 5
+-- Name: T_User; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "T_User" (
+    user_id integer NOT NULL,
+    username text,
+    password "char"[],
+    user_type integer,
+    user_status boolean
+);
+
+
+ALTER TABLE public."T_User" OWNER TO postgres;
+
+--
+-- TOC entry 162 (class 1259 OID 16400)
+-- Dependencies: 5
+-- Name: s_product; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product OWNER TO postgres;
+
+--
+-- TOC entry 1869 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: s_product; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product', 2, true);
+
+
+--
+-- TOC entry 1861 (class 0 OID 16394)
+-- Dependencies: 161
+-- Data for Name: T_Product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "T_Product" (product_id, product_name, cost_price, sale_price) FROM stdin;
+2	test_product	100	150
+\.
+
+
+--
+-- TOC entry 1862 (class 0 OID 24585)
+-- Dependencies: 163
+-- Data for Name: T_User; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "T_User" (user_id, username, password, user_type, user_status) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1856 (class 2606 OID 16403)
+-- Dependencies: 161 161
+-- Name: product_pk1; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "T_Product"
+    ADD CONSTRAINT product_pk1 PRIMARY KEY (product_id);
+
+
+--
+-- TOC entry 1858 (class 2606 OID 24592)
+-- Dependencies: 163 163
+-- Name: user_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "T_User"
+    ADD CONSTRAINT user_pk PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 1860 (class 2606 OID 24594)
+-- Dependencies: 163 163
+-- Name: user_uq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "T_User"
+    ADD CONSTRAINT user_uq UNIQUE (username);
+
+
+--
+-- TOC entry 1854 (class 1259 OID 16404)
+-- Dependencies: 161
+-- Name: T_Product_product_id_idx; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX "T_Product_product_id_idx" ON "T_Product" USING btree (product_id);
+
+
+--
+-- TOC entry 1867 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2018-11-27 01:32:35
+
+--
+-- PostgreSQL database dump complete
+--
+
