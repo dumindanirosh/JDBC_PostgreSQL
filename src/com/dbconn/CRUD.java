@@ -18,10 +18,6 @@ import java.util.logging.Logger;
  */
 public class CRUD {
 
-    public static void main(String[] args) {
-
-    }
-
     public ResultSet getResultSet(String sql) {
 
         Connection conn = DBConnection.getConnection();
